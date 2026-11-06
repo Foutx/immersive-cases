@@ -1,0 +1,21 @@
+[
+  {
+    "title": "Пример: название проекта",
+    "brand_or_client": "Бренд или музей",
+    "year": 2023,
+    "country_city": "Россия, Москва",
+    "category": "Museums & Cultural Exhibitions",
+    "immersive_format": "360° проекционный зал с интерактивным полом",
+    "tech_markers": ["projection_mapping", "interactive_generative"],
+    "summary": "Два-четыре предложения о том, что видит и делает посетитель. Какие технологии, какой масштаб.",
+    "source_url": "https://example.com/project",
+    "anchors": {
+      "production_agencies": ["Sila Sveta"],
+      "visual_triggers": ["светящиеся цветы", "зеркальная комната"],
+      "exact_venue": "ВДНХ, павильон 1",
+      "event_date_range": {"start": "2023-10-10", "end": "2023-10-25"},
+      "official_hashtags": ["#example"],
+      "local_language": "ru"
+    }
+  }
+]

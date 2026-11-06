@@ -1,0 +1,13 @@
+[
+  {"name": "Eventex", "kind": "award", "url": "https://www.eventex.co/winners/", "follow_pattern": "/winners?/.+"},
+  {"name": "BEA World", "kind": "award", "url": "https://www.beaworld.com/", "follow_pattern": "/(winners?|case|project)s?/.+"},
+  {"name": "bema!", "kind": "award", "url": "https://www.bema.it/", "follow_pattern": "/(winners?|case|progett)\\w*/.+"},
+  {"name": "Webby Awards", "kind": "award", "url": "https://winners.webbyawards.com/", "follow_pattern": "/\\d{4}/.+"},
+  {"name": "Sila Sveta", "kind": "studio", "url": "https://silasveta.com/", "follow_pattern": "/(projects?|work)/.+"},
+  {"name": "Radugadesign", "kind": "studio", "url": "https://radugadesign.com/", "follow_pattern": "/(projects?|work|portfolio)/.+"},
+  {"name": "Moment Factory", "kind": "studio", "url": "https://momentfactory.com/work", "follow_pattern": "/work/.+"},
+  {"name": "teamLab", "kind": "studio", "default_brand": "teamLab", "url": "https://www.teamlab.art/e/", "follow_pattern": "^/e/[^/]+/?$"},
+  {"name": "Marshmallow Laser Feast", "kind": "studio", "enabled": false, "url": "https://www.marshmallowlaserfeast.com/", "follow_pattern": "/(project|experiences?)/.+"},
+  {"name": "d'strict", "kind": "studio", "enabled": false, "url": "https://www.dstrict.com/", "follow_pattern": "/(project|portfolio)/.+"},
+  {"name": "Random International", "kind": "studio", "enabled": false, "url": "https://www.random-international.com/", "follow_pattern": "/[a-z0-9-]+-\\d{4}"}
+]

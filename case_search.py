@@ -16,7 +16,19 @@ def terms(text):
     return {next((root for root in ROOTS if w.startswith(root)), w)
             for w in words if w not in STOP}
 
+def as_legacy(c):
+    """Карточки из immersive_pipeline (summary, category, ...) приводим к полям поиска."""
+    if "summary" not in c:
+        return c
+    return {**c, "description": c.get("description") or c["summary"],
+            "topics": c.get("topics") or [c.get("category"), *(c.get("tech_markers") or [])],
+            "venue_type": c.get("venue_type") or c.get("category"),
+            "format": c.get("format") or c.get("immersive_format"),
+            "city": c.get("city") or c.get("country_city")}
+
+
 def search_cases(query, cases, limit=5):
+    cases = [as_legacy(c) for c in cases]
     requested = terms(query)
     if not query.strip():
         raise ValueError("Опишите идею мероприятия")

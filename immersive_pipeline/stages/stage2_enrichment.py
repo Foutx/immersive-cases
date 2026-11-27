@@ -21,6 +21,7 @@ from pydantic import ValidationError
 import config
 from stages.common import (coverage, get_json, host_of, http_request, load_json, log,
                            save_json, similarity, tokens)
+from stages.llm import LLMError
 from stages.models import EnrichedCase, RawCandidate, VideoEvidence
 
 
@@ -375,6 +376,11 @@ async def run_stage2(*, llm, backends=None, verifier=None, in_path=config.RAW_CA
         async with semaphore:
             try:
                 enriched = await enrich_case(case, llm=llm, backends=backends, verifier=verifier)
+            except LLMError as exc:
+                if getattr(llm, "name", "") == "aitunnel":
+                    raise
+                log("ERROR", f"{case.id}: {exc}")
+                return
             except Exception as exc:
                 log("ERROR", f"{case.id}: {type(exc).__name__}: {exc}")
                 return

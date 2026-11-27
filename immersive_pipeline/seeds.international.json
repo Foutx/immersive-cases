@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Rain Room",
+    "kind": "other",
+    "url": "https://www.sharjahart.org/en/whats-on/details/rain-room",
+    "default_brand": "Random International"
+  },
+  {
+    "name": "teamLab Planets TOKYO",
+    "kind": "other",
+    "url": "https://business.jnto.go.jp/en/spot/2137/",
+    "default_brand": "teamLab"
+  },
+  {
+    "name": "Refik Anadol: Unsupervised",
+    "kind": "other",
+    "url": "https://www.moma.org/calendar/exhibitions/5535",
+    "default_brand": "Refik Anadol Studio"
+  },
+  {
+    "name": "Dreamachine",
+    "kind": "other",
+    "url": "https://dreamachine.world/impact/",
+    "default_brand": "Collective Act"
+  },
+  {
+    "name": "Marshmallow Laser Feast: Works of Nature",
+    "kind": "other",
+    "url": "https://www.acmi.net.au/whats-on/marshmallow-laser-feast-works-of-nature/",
+    "default_brand": "Marshmallow Laser Feast"
+  },
+  {
+    "name": "Space Explorers: THE INFINITE",
+    "kind": "other",
+    "url": "https://www.canada.ca/en/economic-development-quebec-regions/blog/success-stories/felix-paul-studios-explore-the-international-space-station-in-virtual-reality.html",
+    "default_brand": "Felix & Paul Studios"
+  },
+  {
+    "name": "Klimt: Gold and Colour",
+    "kind": "other",
+    "url": "https://www.atelier-lumieres.com/fr/decouvrir/un-peu-dhistoire",
+    "default_brand": "Atelier des Lumières"
+  },
+  {
+    "name": "Dark Matter: Winterlights 2021",
+    "url": "https://en.darkmatter.berlin/winterlights-21",
+    "default_brand": "DARK MATTER",
+    "kind": "other"
+  },
+  {
+    "name": "Massless",
+    "url": "https://amosrex.fi/en/exhibitions/teamlab/",
+    "default_brand": "Amos Rex",
+    "kind": "other"
+  },
+  {
+    "name": "Shifting Proximities",
+    "url": "https://nxtmuseum.com/exhibition/shifting-proximities",
+    "default_brand": "Nxt Museum",
+    "kind": "other"
+  },
+  {
+    "name": "Omega Mart",
+    "url": "https://credits.meowwolf.com/omega-mart/",
+    "default_brand": "Meow Wolf",
+    "kind": "other"
+  },
+  {
+    "name": "Bodies Unbound",
+    "url": "https://frameless.com/news/bodies-unbound-a-new-immersive-show-at-frameless-london/",
+    "default_brand": "FRAMELESS",
+    "kind": "other"
+  }
+]

@@ -15,7 +15,7 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, urlsplit
-from urllib.request import Request, urlopen
+from urllib.request import Request, urlopen, HTTPRedirectHandler, HTTPSHandler, build_opener
 
 import config
 
@@ -132,7 +132,12 @@ class _HostThrottle:
 _throttle = _HostThrottle()
 
 
-def _blocking_request(method, url, params, headers, json_body, timeout):
+class _NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+def _blocking_request(method, url, params, headers, json_body, timeout, follow_redirects=True):
     full = url + (("&" if "?" in url else "?") + urlencode(params) if params else "")
     data = (json_body if isinstance(json_body, bytes) else json.dumps(json_body).encode()) if json_body is not None else None
     merged = {"User-Agent": config.USER_AGENT, "Accept-Encoding": "gzip",
@@ -143,7 +148,9 @@ def _blocking_request(method, url, params, headers, json_body, timeout):
     request = Request(full, data=data, headers=merged, method=method)
     try:
         context = ssl.create_default_context(cafile=os.getenv("SSL_CERT_FILE") or None)
-        with urlopen(request, timeout=timeout, context=context) as response:
+        opener = (urlopen(request, timeout=timeout, context=context) if follow_redirects else
+                  build_opener(_NoRedirect(), HTTPSHandler(context=context)).open(request, timeout=timeout))
+        with opener as response:
             body = response.read()
             if response.headers.get("Content-Encoding") == "gzip":
                 body = gzip.decompress(body)
@@ -156,13 +163,13 @@ def _blocking_request(method, url, params, headers, json_body, timeout):
 
 
 async def http_request(method: str, url: str, *, params=None, headers=None, json_body=None,
-                       timeout=None, retries=2) -> tuple[int, str]:
+                       timeout=None, retries=2, follow_redirects=True) -> tuple[int, str]:
     """Возвращает (status, text). status == 0 — сетевая ошибка."""
     timeout = timeout or config.HTTP_TIMEOUT
     for attempt in range(retries + 1):
         await _throttle.wait(host_of(url))
         status, text = await asyncio.to_thread(
-            _blocking_request, method, url, params, headers, json_body, timeout)
+            _blocking_request, method, url, params, headers, json_body, timeout, follow_redirects)
         if status not in (0, 429) and status < 500:
             return status, text
         if attempt < retries:

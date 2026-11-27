@@ -204,7 +204,26 @@ class CaseCore(BaseModel):
         return check_url(value)
 
 
+class ImmersionEvidence(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True, frozen=True)
+    field: Literal["environment", "visitor_actions", "system_response", "visitor_role", "immersion_mechanism",
+                   "occurred", "dates", "location"]
+    value: str = Field(min_length=1, max_length=400)
+    quote: str = Field(min_length=12, max_length=420)
+    source_url: str
+
+    @model_validator(mode="after")
+    def validate_evidence(self):
+        check_url(self.source_url)
+        allowed = {"system_response": {"reacts", "does_not_react"},
+                   "visitor_role": {"observer", "participant", "co_creator"}}
+        if self.field in allowed and self.value not in allowed[self.field]:
+            raise ValueError("Invalid immersion evidence value")
+        return self
+
+
 class RawCandidate(CaseCore):
+    immersion_evidence: list[ImmersionEvidence] = Field(default_factory=list, max_length=25)
     anchors: DiscoveryAnchors = Field(default_factory=DiscoveryAnchors)
     awards: list[str] = Field(default_factory=list)
     discovered_from: list[str] = Field(default_factory=list)

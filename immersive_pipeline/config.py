@@ -74,7 +74,10 @@ SCORE_WEIGHTS = {
 }
 
 # --- LLM --------------------------------------------------------------------
-LLM_PROVIDER = _env("LLM_PROVIDER", "ollama")       # ollama | openai | none
+LLM_PROVIDER = _env("LLM_PROVIDER", "aitunnel")   # aitunnel | gigachat | ollama | openai | none
+AITUNNEL_API_KEY = _env("AITUNNEL_API_KEY")
+AITUNNEL_MODEL = _env("AITUNNEL_MODEL", "gpt-4.1-nano")
+AITUNNEL_MAX_CALLS = _int("AITUNNEL_MAX_CALLS", 60)
 OLLAMA_URL = _env("OLLAMA_URL", "http://localhost:11434")
 OLLAMA_MODEL = _env("OLLAMA_MODEL", "qwen2.5:7b-instruct")
 OPENAI_BASE_URL = _env("OPENAI_BASE_URL", "https://api.openai.com/v1")  # любой OpenAI-совместимый

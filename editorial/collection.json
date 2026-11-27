@@ -1,0 +1,537 @@
+{
+  "producer": "editorial_v1",
+  "collected_at": "2026-11-27T18:52:14+00:00",
+  "schema_version": "1.0",
+  "events": [
+    {
+      "source_record_id": "rain-room-sharjah",
+      "title": "Rain Room",
+      "description": "Посетитель входит в тёмный зал с настоящим дождём. Камеры отслеживают людей, и струи отключаются над ними: маршрут через ливень создаётся собственным движением.",
+      "country_code": "AE",
+      "city": "Шарджа",
+      "venue": "Sharjah Art Foundation, Al Majarrah",
+      "reported_year": 2018,
+      "start_date": null,
+      "end_date": null,
+      "studios": [
+        "Random International"
+      ],
+      "category": "Museums & Cultural Exhibitions",
+      "format_text": "motion_response",
+      "source_url": "https://www.sharjahart.org/en/whats-on/details/rain-room",
+      "proofs": [
+        {
+          "url": "https://www.sharjahart.org/en/whats-on/details/rain-room",
+          "title": "Sharjah Art Foundation",
+          "kind": "official"
+        }
+      ],
+      "tags": [
+        {
+          "kind": "format",
+          "slug": "motion_response"
+        },
+        {
+          "kind": "technology",
+          "slug": "interactive_generative"
+        }
+      ],
+      "occurrence": "unknown",
+      "claims": [
+        {
+          "field": "occurred",
+          "value": "Открылась в мае 2018 года",
+          "evidence": [
+            {
+              "url": "https://www.sharjahart.org/en/whats-on/details/rain-room",
+              "quote": "Opened in May 2018"
+            }
+          ]
+        },
+        {
+          "field": "visitor_actions",
+          "value": "Идти сквозь дождь",
+          "evidence": [
+            {
+              "url": "https://www.sharjahart.org/en/whats-on/details/rain-room",
+              "quote": "walk through a downpour"
+            }
+          ]
+        },
+        {
+          "field": "immersion_mechanism",
+          "value": "Тело находится внутри настоящего дождя, а не перед его изображением.",
+          "evidence": [
+            {
+              "url": "https://www.sharjahart.org/en/whats-on/details/rain-room",
+              "quote": "navigate the darkened underground space"
+            }
+          ]
+        },
+        {
+          "field": "system_response",
+          "value": "reacts",
+          "evidence": [
+            {
+              "url": "https://www.sharjahart.org/en/whats-on/details/rain-room",
+              "quote": "preventing the rain from falling directly above any detected human presence"
+            }
+          ]
+        }
+      ],
+      "score": 100,
+      "score_method": "editorial_immersion_v1"
+    },
+    {
+      "source_record_id": "planets-toyosu",
+      "title": "teamLab Planets TOKYO",
+      "description": "В водной зоне посетители идут босиком через зал. Реальная вода и цифровые карпы делят одно пространство: появление человека меняет изображение.",
+      "country_code": "JP",
+      "city": "Токио",
+      "venue": "teamLab Planets TOKYO, Тоёсу",
+      "reported_year": 2018,
+      "start_date": "2018-07-07",
+      "end_date": null,
+      "studios": [
+        "teamLab"
+      ],
+      "category": "Museums & Cultural Exhibitions",
+      "format_text": "motion_response",
+      "source_url": "https://business.jnto.go.jp/en/spot/2137/",
+      "proofs": [
+        {
+          "url": "https://business.jnto.go.jp/en/spot/2137/",
+          "title": "JNTO · teamLab Planets TOKYO",
+          "kind": "official"
+        },
+        {
+          "url": "https://www.japan.travel/en/ca/news/cherry-blossoms-transform-teamlab-planets-in-tokyo/",
+          "title": "JNTO · описание водной инсталляции",
+          "kind": "official"
+        },
+        {
+          "url": "https://asset.japan.travel/image/upload/v1694478937/pdf/PLANETS_Co._Ltd_2023.9.11.pdf",
+          "title": "PLANETS Co. · даты показа",
+          "kind": "official"
+        }
+      ],
+      "tags": [
+        {
+          "kind": "format",
+          "slug": "motion_response"
+        },
+        {
+          "kind": "technology",
+          "slug": "projection_mapping"
+        },
+        {
+          "kind": "technology",
+          "slug": "interactive_generative"
+        }
+      ],
+      "occurrence": "unknown",
+      "claims": [
+        {
+          "field": "occurred",
+          "value": "Музей открылся в Тоёсу в июле 2018 года",
+          "evidence": [
+            {
+              "url": "https://business.jnto.go.jp/en/spot/2137/",
+              "quote": "opened teamLab Planets TOKYO DMM in Toyosu, Tokyo, in July 2018"
+            }
+          ]
+        },
+        {
+          "field": "visitor_actions",
+          "value": "Идти босиком по воде",
+          "evidence": [
+            {
+              "url": "https://www.japan.travel/en/ca/news/cherry-blossoms-transform-teamlab-planets-in-tokyo/",
+              "quote": "Visitors walk barefoot through real water"
+            }
+          ]
+        },
+        {
+          "field": "immersion_mechanism",
+          "value": "Проекция карпов наложена на воду, в которой стоит посетитель.",
+          "evidence": [
+            {
+              "url": "https://www.japan.travel/en/ca/news/cherry-blossoms-transform-teamlab-planets-in-tokyo/",
+              "quote": "koi swim across the infinite surface"
+            }
+          ]
+        },
+        {
+          "field": "system_response",
+          "value": "reacts",
+          "evidence": [
+            {
+              "url": "https://www.japan.travel/en/ca/news/cherry-blossoms-transform-teamlab-planets-in-tokyo/",
+              "quote": "When the koi collide with people, they will bloom into cherry blossoms"
+            }
+          ]
+        }
+      ],
+      "score": 100,
+      "score_method": "editorial_immersion_v1"
+    },
+    {
+      "source_record_id": "unsupervised-moma",
+      "title": "Refik Anadol: Unsupervised",
+      "description": "В вестибюле MoMA генеративная работа меняла изображение и звук. В неё поступали сигналы среды, в том числе изменения движения, освещения и акустики. Это не означает, что каждый зритель мог управлять картиной.",
+      "country_code": "US",
+      "city": "Нью-Йорк",
+      "venue": "MoMA, Agnes Gund Garden Lobby",
+      "reported_year": 2022,
+      "start_date": "2022-11-19",
+      "end_date": "2023-10-29",
+      "studios": [
+        "Refik Anadol Studio"
+      ],
+      "category": "Museums & Cultural Exhibitions",
+      "format_text": "generative_installation",
+      "source_url": "https://www.moma.org/calendar/exhibitions/5535",
+      "proofs": [
+        {
+          "url": "https://www.moma.org/calendar/exhibitions/5535",
+          "title": "MoMA · архив выставки",
+          "kind": "official"
+        }
+      ],
+      "tags": [
+        {
+          "kind": "format",
+          "slug": "generative_installation"
+        },
+        {
+          "kind": "technology",
+          "slug": "interactive_generative"
+        }
+      ],
+      "occurrence": "completed",
+      "claims": [
+        {
+          "field": "occurred",
+          "value": "Выставка проходила в MoMA в 2022–2023 годах",
+          "evidence": [
+            {
+              "url": "https://www.moma.org/calendar/exhibitions/5535",
+              "quote": "Nov 19, 2022–Oct 29, 2023"
+            }
+          ]
+        },
+        {
+          "field": "immersion_mechanism",
+          "value": "Масштабное цифровое изображение и звук разворачиваются в одном физическом пространстве.",
+          "evidence": [
+            {
+              "url": "https://www.moma.org/calendar/exhibitions/5535",
+              "quote": "forms that envelop viewers in a large-scale installation"
+            }
+          ]
+        },
+        {
+          "field": "system_response",
+          "value": "reacts",
+          "evidence": [
+            {
+              "url": "https://www.moma.org/calendar/exhibitions/5535",
+              "quote": "changes in light, movement, acoustics, and the weather outside"
+            }
+          ]
+        }
+      ],
+      "score": 25,
+      "score_method": "editorial_immersion_v1"
+    },
+    {
+      "source_record_id": "dreamachine-uk-2022",
+      "title": "Dreamachine",
+      "description": "На показах тура 2022 года зрители закрывали глаза. Ритмический белый свет и пространственный звук создавали внутренние, а не проецируемые на экран образы.",
+      "country_code": "GB",
+      "city": "Лондон, Кардифф, Белфаст, Эдинбург",
+      "venue": null,
+      "reported_year": 2022,
+      "start_date": "2022-05-10",
+      "end_date": "2022-09-25",
+      "studios": [],
+      "category": "Museums & Cultural Exhibitions",
+      "format_text": "sensory_journey",
+      "source_url": "https://dreamachine.world/impact/",
+      "proofs": [
+        {
+          "url": "https://dreamachine.world/impact/",
+          "title": "Dreamachine · итоги тура",
+          "kind": "official"
+        },
+        {
+          "url": "https://dreamachine.world/dream-grid/",
+          "title": "Dreamachine · описание опыта",
+          "kind": "official"
+        }
+      ],
+      "tags": [
+        {
+          "kind": "format",
+          "slug": "sensory_journey"
+        },
+        {
+          "kind": "technology",
+          "slug": "spatial_audio"
+        }
+      ],
+      "occurrence": "completed",
+      "claims": [
+        {
+          "field": "occurred",
+          "value": "Показы состоялись в четырёх городах Великобритании",
+          "evidence": [
+            {
+              "url": "https://dreamachine.world/impact/",
+              "quote": "From 10 May to 25 September 2022"
+            }
+          ]
+        },
+        {
+          "field": "immersion_mechanism",
+          "value": "Согласованные свет и пространственный звук создают восприятие без видимого экрана.",
+          "evidence": [
+            {
+              "url": "https://dreamachine.world/dream-grid/",
+              "quote": "Using only spatial sound and flickering white light"
+            }
+          ]
+        },
+        {
+          "field": "visitor_actions",
+          "value": "Слушать и воспринимать с закрытыми глазами",
+          "evidence": [
+            {
+              "url": "https://dreamachine.world/dream-grid/",
+              "quote": "kaleidoscopic imagery behind closed eyes"
+            }
+          ]
+        }
+      ],
+      "score": 75,
+      "score_method": "editorial_immersion_v1"
+    },
+    {
+      "source_record_id": "works-of-nature-acmi",
+      "title": "Marshmallow Laser Feast: Works of Nature",
+      "description": "Выставка ACMI соединяла экранные работы и направленную медитацию. Переход между произведениями строился вокруг дыхания: от движения кислорода в теле до связей человека с растениями.",
+      "country_code": "AU",
+      "city": "Мельбурн",
+      "venue": "ACMI",
+      "reported_year": 2023,
+      "start_date": "2023-11-23",
+      "end_date": "2024-04-14",
+      "studios": [
+        "Marshmallow Laser Feast"
+      ],
+      "category": "Museums & Cultural Exhibitions",
+      "format_text": "sensory_journey",
+      "source_url": "https://www.acmi.net.au/whats-on/marshmallow-laser-feast-works-of-nature/",
+      "proofs": [
+        {
+          "url": "https://www.acmi.net.au/whats-on/marshmallow-laser-feast-works-of-nature/",
+          "title": "ACMI · архив выставки",
+          "kind": "official"
+        },
+        {
+          "url": "https://labs.acmi.net.au/onboarding-visitors-into-immersive-exhibitions-251ec53cbe77",
+          "title": "ACMI Labs · разбор маршрута",
+          "kind": "official"
+        }
+      ],
+      "tags": [
+        {
+          "kind": "format",
+          "slug": "sensory_journey"
+        }
+      ],
+      "occurrence": "completed",
+      "claims": [
+        {
+          "field": "occurred",
+          "value": "Архив отмечает, что показ завершён",
+          "evidence": [
+            {
+              "url": "https://www.acmi.net.au/whats-on/marshmallow-laser-feast-works-of-nature/",
+              "quote": "This event has ended and tickets are no longer available."
+            }
+          ]
+        },
+        {
+          "field": "immersion_mechanism",
+          "value": "Экранные работы и медитация связывают маршрут общей темой дыхания.",
+          "evidence": [
+            {
+              "url": "https://www.acmi.net.au/whats-on/marshmallow-laser-feast-works-of-nature/",
+              "quote": "Through guided meditation, large-scale screen works and interactive experiences"
+            }
+          ]
+        },
+        {
+          "field": "environment",
+          "value": "Планировка ослабляла видимость соседних работ, чтобы зритель не пробегал зал.",
+          "evidence": [
+            {
+              "url": "https://labs.acmi.net.au/onboarding-visitors-into-immersive-exhibitions-251ec53cbe77",
+              "quote": "slowing people down by reducing sight lines between works"
+            }
+          ]
+        }
+      ],
+      "score": 75,
+      "score_method": "editorial_immersion_v1"
+    },
+    {
+      "source_record_id": "infinite-montreal-2021",
+      "title": "Space Explorers: THE INFINITE",
+      "description": "На премьере в Монреале посетители исследовали модель Международной космической станции в VR. В экспозицию встроили 360-градусные стереоскопические кадры, снятые на МКС.",
+      "country_code": "CA",
+      "city": "Монреаль",
+      "venue": "Arsenal Contemporary Art Montréal",
+      "reported_year": 2021,
+      "start_date": "2021-07-21",
+      "end_date": "2021-11-07",
+      "studios": [
+        "Felix & Paul Studios",
+        "PHI Studio"
+      ],
+      "category": "Museums & Cultural Exhibitions",
+      "format_text": "free_roam_xr",
+      "source_url": "https://theinfiniteexperience.world/montreal/about",
+      "proofs": [
+        {
+          "url": "https://theinfiniteexperience.world/montreal/about",
+          "title": "INFINITY Experiences · география показов",
+          "kind": "official"
+        },
+        {
+          "url": "https://www.canada.ca/en/economic-development-quebec-regions/blog/success-stories/felix-paul-studios-explore-the-international-space-station-in-virtual-reality.html",
+          "title": "Правительство Канады · история проекта",
+          "kind": "article"
+        },
+        {
+          "url": "https://time.com/6085479/the-infinite-vr-experience/",
+          "title": "TIME · партнёр исходной съёмки и репортаж с показа",
+          "kind": "article"
+        }
+      ],
+      "tags": [
+        {
+          "kind": "format",
+          "slug": "free_roam_xr"
+        },
+        {
+          "kind": "technology",
+          "slug": "xr"
+        }
+      ],
+      "occurrence": "completed",
+      "claims": [
+        {
+          "field": "occurred",
+          "value": "Состоявшаяся премьера в Монреале",
+          "evidence": [
+            {
+              "url": "https://theinfiniteexperience.world/montreal/about",
+              "quote": "July 21 to November 7, 2021"
+            }
+          ]
+        },
+        {
+          "field": "visitor_actions",
+          "value": "Исследовать модель станции в масштабе пространства",
+          "evidence": [
+            {
+              "url": "https://time.com/6085479/the-infinite-vr-experience/",
+              "quote": "a giant model of the space station to wander through"
+            }
+          ]
+        },
+        {
+          "field": "immersion_mechanism",
+          "value": "VR подменяет поле зрения моделью станции и съёмкой из космоса.",
+          "evidence": [
+            {
+              "url": "https://time.com/6085479/the-infinite-vr-experience/",
+              "quote": "360-degree, 3D footage from the VR film Space Explorers"
+            }
+          ]
+        }
+      ],
+      "score": 75,
+      "score_method": "editorial_immersion_v1"
+    },
+    {
+      "source_record_id": "klimt-atelier-paris-2018",
+      "title": "Klimt: Gold and Colour",
+      "description": "Выставка открыла парижский Atelier des Lumières в бывшем литейном цехе. Масштабные проекции превращали стены цеха в часть изображения. Управление со стороны зрителя не подтверждено.",
+      "country_code": "FR",
+      "city": "Париж",
+      "venue": "Atelier des Lumières",
+      "reported_year": 2018,
+      "start_date": "2018-04-13",
+      "end_date": "2019-01-06",
+      "studios": [],
+      "category": "Museums & Cultural Exhibitions",
+      "format_text": "surround_projection",
+      "source_url": "https://www.atelier-lumieres.com/en/explore/bit-history",
+      "proofs": [
+        {
+          "url": "https://www.atelier-lumieres.com/en/explore/bit-history",
+          "title": "Atelier des Lumières · история площадки",
+          "kind": "official"
+        },
+        {
+          "url": "https://www.atelier-lumieres.com/en/resources/past-exhibitions/gustav-klimt",
+          "title": "Atelier des Lumières · архив выставки",
+          "kind": "official"
+        },
+        {
+          "url": "https://www.atelier-lumieres.com/fr/decouvrir/un-peu-dhistoire",
+          "title": "Atelier des Lumières · французская версия",
+          "kind": "official"
+        }
+      ],
+      "tags": [
+        {
+          "kind": "format",
+          "slug": "surround_projection"
+        },
+        {
+          "kind": "technology",
+          "slug": "projection_mapping"
+        }
+      ],
+      "occurrence": "completed",
+      "claims": [
+        {
+          "field": "occurred",
+          "value": "Проект открыл площадку 13 апреля 2018 года",
+          "evidence": [
+            {
+              "url": "https://www.atelier-lumieres.com/en/explore/bit-history",
+              "quote": "opened to the public on April 13, 2018"
+            }
+          ]
+        },
+        {
+          "field": "immersion_mechanism",
+          "value": "Архитектура цеха служит полотном для масштабных проекций.",
+          "evidence": [
+            {
+              "url": "https://www.atelier-lumieres.com/en/explore/bit-history",
+              "quote": "projected onto the walls of the former industrial hall"
+            }
+          ]
+        }
+      ],
+      "score": 50,
+      "score_method": "editorial_immersion_v1"
+    }
+  ]
+}

@@ -19,12 +19,23 @@ def to_final(case: ScoredCase) -> FinalCase:
 
 
 def run_stage4(*, in_path=config.TOP_CASES, out_path=config.FINAL_CASES,
-               schema_path=config.FINAL_SCHEMA, strict=False, publish_to: Path | None = None):
+               schema_path=config.FINAL_SCHEMA, strict=False, publish_to: Path | None = None,
+               save_db=False, db_path: Path | None = None):
     final = []
-    for row in load_json(in_path, []):
+    accepted = []
+    if save_db and not Path(in_path).is_file():
+        raise ValueError(f"Pipeline output not found: {in_path}")
+    rows = load_json(in_path, [])
+    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+        raise ValueError("Expected an array of pipeline cards")
+    for row in rows:
         try:
-            final.append(to_final(ScoredCase.model_validate(row)))
+            case = ScoredCase.model_validate(row)
+            final.append(to_final(case))
+            accepted.append(case)
         except ValidationError as exc:
+            if save_db:
+                raise ValueError("Invalid card: DB export aborted before any writes") from exc
             log("VALIDATION ERROR", f"{row.get('title')}: {exc.errors()[0]['msg']}")
     ids = [c.id for c in final]
     if len(ids) != len(set(ids)):
@@ -35,6 +46,10 @@ def run_stage4(*, in_path=config.TOP_CASES, out_path=config.FINAL_CASES,
             raise ValueError(message)
         log("WARN", message)
 
+    batch = None
+    if save_db:
+        from services.pipeline_import import prepare_batch
+        batch = prepare_batch(accepted)
     save_json(out_path, [c.model_dump(mode="json") for c in final])
     save_json(schema_path, FINAL_LIST.json_schema())
     # Контроль: файл читается как UTF-8 и проходит схему заново.
@@ -44,4 +59,12 @@ def run_stage4(*, in_path=config.TOP_CASES, out_path=config.FINAL_CASES,
     if publish_to:
         shutil.copyfile(out_path, publish_to)
         log("DONE", f"Скопировано в {publish_to}")
+    if batch is not None:
+        from services.import_events import import_batch
+        try:
+            result = import_batch(batch, db_path)
+        except Exception:
+            log("ERROR", "JSON saved, SQLite import failed. Retry with import-db using top_cases.json.")
+            raise
+        log("DONE", "SQLite: " + json.dumps(result, ensure_ascii=False))
     return final

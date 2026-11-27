@@ -140,6 +140,7 @@ def merge(current: RawCandidate, new: RawCandidate) -> RawCandidate:
         anchors=anchors, awards=_union(current.awards, new.awards),
         tech_markers=_union(current.tech_markers, new.tech_markers),
         discovered_from=_union(current.discovered_from, new.discovered_from),
+        immersion_evidence=_union(current.immersion_evidence, new.immersion_evidence)[:25],
         seed_kind="award" if "award" in (current.seed_kind, new.seed_kind) else current.seed_kind))
 
 
@@ -179,6 +180,7 @@ def build_candidate(row: dict, *, page_url: str, seed: dict) -> RawCandidate:
     text = f"{data.get('immersive_format', '')} {data.get('summary', '')}"
     data["tech_markers"] = [*(data.get("tech_markers") or []), *detect_tech_markers(text)]
     return RawCandidate(**data, anchors=anchors, awards=awards,
+                        immersion_evidence=row.get("immersion_evidence", []),
                         discovered_from=list(dict.fromkeys([page_url, data["source_url"]])),
                         seed_kind=seed.get("kind", "other"))
 
@@ -277,15 +279,16 @@ async def run_stage1(*, seeds, llm, out_path=config.RAW_CANDIDATES,
                     "в пул попали только ручные кандидаты")
         return job.pool
 
-    async def process(page_url: str, seed: dict, fetch):
+    async def process(page_url: str, seed: dict, fetch, prefetched=None):
         if page_url in job.done_pages or job.full:
             return
-        page = await fetch(page_url)
+        page = prefetched if prefetched is not None else await fetch(page_url)
         if not page.ok:
             log("WARN", f"не загрузилась {page_url}")
             return
         context = (f"Source brand: {seed['default_brand']}\n" if seed.get("default_brand") else "")
-        rows = await llm.extract_cases(context + page.text, page.url)
+        text = page.text if getattr(llm, "name", "") == "aitunnel" else context + page.text
+        rows = await llm.extract_cases(text, page.url)
         async with job.lock:
             valid_page = True
             for row in rows:
@@ -307,10 +310,10 @@ async def run_stage1(*, seeds, llm, out_path=config.RAW_CANDIDATES,
     async with fetcher:
         semaphore = asyncio.Semaphore(config.MAX_CONCURRENCY)
 
-        async def guarded(url, seed):
+        async def guarded(url, seed, prefetched=None):
             async with semaphore:
                 try:
-                    await process(url, seed, fetcher.fetch)
+                    await process(url, seed, fetcher.fetch, prefetched=prefetched)
                 except LLMError:
                     raise
                 except Exception as exc:  # одна битая страница не должна ронять этап
@@ -322,6 +325,11 @@ async def run_stage1(*, seeds, llm, out_path=config.RAW_CANDIDATES,
             if job.full:
                 break
             log("INFO", f"Seed: {seed.get('name')} — {seed['url']}")
+            # A direct project page is not a discovery listing. Fetch it only once.
+            if not seed.get("follow_pattern"):
+                await guarded(seed["url"], seed)
+                continue
+            listing = None
             links = job.state["links"].get(seed["url"])
             if links is None:
                 listing = await fetcher.fetch(seed["url"])
@@ -335,9 +343,9 @@ async def run_stage1(*, seeds, llm, out_path=config.RAW_CANDIDATES,
             pages = links if links else [seed["url"]]
             if getattr(llm, "name", "") == "gigachat":
                 for u in pages:
-                    await guarded(u, seed)
+                    await guarded(u, seed, listing if u == seed["url"] else None)
             else:
-                await asyncio.gather(*(guarded(u, seed) for u in pages))
+                await asyncio.gather(*(guarded(u, seed, listing if u == seed["url"] else None) for u in pages))
     job.save()
     total = len(job.pool)
     status = "DONE" if total >= config.TARGET_POOL_MIN else "WARN"

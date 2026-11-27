@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Immersive Cases — база иммерсивных проектов</title>
+  <meta name="description" content="База иммерсивных выставок и инсталляций. Описания, ссылки на источники и скачивание в JSON и CSV.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/menu.js" defer></script>
+<script src="/static/catalogue.js" defer></script></head>
+<body>
+<a class="skip" href="#archive">Перейти к кейсам</a>
+<header class="header"><a class="wordmark" href="/">Immersive<br><em>Cases.</em></a>
+  <button class="menu-toggle" aria-expanded="false" aria-controls="navigation">Меню <span>+</span></button>
+  <nav id="navigation" aria-label="Основная навигация"><a href="#archive">01 / Кейсы</a><a href="#data">02 / Данные</a><a href="#about">04 / О проекте</a><a class="nav-download" href="/api/export?format=json">Скачать базу</a></nav>
+</header>
+<main><p class="wrap preview-note" id="preview-note" hidden>Локальный просмотр черновиков. Данные и ссылки ещё не проверены.</p><noscript><p class="wrap">Для просмотра каталога включите JavaScript. <a href="/api/events">Открыть данные JSON</a></p></noscript>
+  <section class="hero wrap front" aria-labelledby="title">
+    <div class="eyebrow"><span>Редакционный каталог / Выставки · Инсталляции · XR</span><span>Международная подборка</span></div>
+    <div class="front-grid">
+      <div class="front-copy"><h1 id="title">Как устроено<br><em>погружение.</em></h1>
+      <p>Реальные проекты и разбор их механики: что окружает зрителя, что он делает и как отвечает пространство.</p>
+      <div class="front-links"><a class="button-dark" href="#archive">Смотреть кейсы <span class="css-arrow down-right" aria-hidden="true"></span></a><a href="#rating">Как мы оцениваем</a></div>
+      <p class="front-count"><strong id="total">…</strong> <span>в каталоге</span></p></div>
+      <figure class="featured">
+        <div class="rain-art" aria-hidden="true"><span></span><span></span><span></span></div>
+        <figcaption><span>Иллюстрация механики, не фото проекта</span><a id="featured-case" href="#archive">Дождь как среда</a></figcaption>
+      </figure>
+    </div>
+    <div class="routes" aria-label="Выбрать механику">
+      <button type="button" data-tag="motion_response" disabled><span>01 / ДЕЙСТВИЕ</span>Пространство реагирует <i class="css-arrow" aria-hidden="true"></i></button>
+      <button type="button" data-tag="sensory_journey" disabled><span>02 / ВОСПРИЯТИЕ</span>Сенсорный маршрут <i class="css-arrow" aria-hidden="true"></i></button>
+      <button type="button" data-tag="surround_projection" disabled><span>03 / АРХИТЕКТУРА</span>Проекции вокруг <i class="css-arrow" aria-hidden="true"></i></button>
+    </div>
+  </section>
+
+  <section class="archive wrap" id="archive" aria-labelledby="archive-title">
+    <div class="section-label"><span>01 / Кейсы</span><span>Описания и ссылки</span></div>
+    <div class="section-heading"><h2 id="archive-title">Найденные <em>кейсы.</em></h2><p>Откройте кейс, чтобы увидеть механику, оценку погружения и цитаты из источников.</p></div>
+    <form class="filters" id="filters" role="search">
+      <label class="search">Поиск по названию и описанию<input name="q" placeholder="Например, teamLab" type="search" maxlength="200"></label>
+      <label>Страна<select name="country"><option value="">Все страны</option></select></label>
+      <label>Год<select name="year"><option value="">Все годы</option></select></label>
+      <label>Технология / формат<select name="tag"><option value="">Все теги</option></select></label>
+      <label>Видео<select name="has_video"><option value="">Все кейсы</option><option value="true">С видео</option><option value="false">Без видео</option></select></label>
+      <label>Погружение<select name="has_mechanism"><option value="">Все кейсы</option><option value="true">Механизм с цитатой</option><option value="false">Без цитаты</option></select></label>
+      <button type="submit">Найти</button>
+    </form>
+    <div class="results caption"><span id="results" role="status" aria-live="polite">Загрузка…</span><button class="text-button" id="reset" type="button">Сбросить фильтры ×</button></div>
+    <div class="table-heading caption"><span>№</span><span>Проект / место</span><span>Механика</span><span>Год</span></div>
+    <div id="case-list" aria-busy="true"></div>
+    <div class="pagination"><button id="prev" type="button" disabled>Назад</button><span id="page-label"></span><button id="next" type="button" disabled>Дальше</button></div>
+    <div class="archive-end"><span class="caption">Список обновляется при загрузке новых данных.</span><a href="/api/export?format=json" id="filtered-download">Скачать найденное</a></div>
+  </section>
+
+  <section class="data wrap" id="data" aria-labelledby="data-title">
+    <div class="section-label"><span>02 / Состояние базы</span><span>Количество и дата обновления</span></div>
+    <div class="section-heading"><h2 id="data-title">О <em>данных.</em></h2></div>
+    <div class="data-grid"><div class="data-note"><p>В витрину входят проекты с источниками и редакционной проверкой. Автоматический сбор пополняет отдельную очередь черновиков.</p><a href="/api/events">Открыть данные в JSON</a></div>
+      <dl><div><dt>Последний импорт</dt><dd id="last-import">Загрузка…</dd></div><div><dt>Статус импорта</dt><dd id="import-status">…</dd></div><div><dt>Успешный импорт</dt><dd id="last-success">…</dd></div><div><dt>Последний сбор данных</dt><dd id="last-collection">Неизвестно</dd></div></dl></div>
+    <p class="footnote">Время указано в UTC. Импорт и сбор с сайтов — разные события.</p>
+  </section>
+
+  <section class="wrap rating-guide" id="rating" aria-labelledby="rating-title">
+    <div class="section-label"><span>03 / Методика</span><span>Степень погружения, не качество проекта</span></div>
+    <div class="section-heading"><h2 id="rating-title">Шкала <em>присутствия.</em></h2><p>Редакционная оценка по источникам. Интерактивность отмечаем отдельно, она не обязательна.</p></div>
+    <ol><li><b>1</b>Локальный фокус<span>Один крупный объект или экран, остальное пространство остаётся обычным.</span></li><li><b>2</b>Среда вокруг<span>Архитектура или несколько поверхностей становятся частью сцены.</span></li><li><b>3</b>Цельный опыт<span>Согласованные ощущения, маршрут или виртуальная среда формируют единое переживание.</span></li><li><b>4</b>Тело внутри среды<span>Зритель физически входит в главный эффект, а не только наблюдает его.</span></li></ol>
+  </section>
+  <section class="about wrap" id="about"><div class="section-label"><span>04 / О проекте</span><span>Как пополняется база</span></div><p class="statement">Собираем проекты в одном месте,<br>чтобы было проще <em>найти примеры<br>для своей идеи.</em></p><div class="method"><p><span class="caption accent">01 / Сбор</span>Программа читает сайты студий и выставок. ИИ составляет карточки проектов.</p><p><span class="caption accent">02 / Проверка</span>Программа проверяет поля карточек и ищет видео. Достоверность описаний нужно проверять отдельно.</p><p><span class="caption accent">03 / Просмотр</span>На сайте можно искать кейсы, открывать источники и скачивать базу. Сам сайт сбор не запускает.</p></div></section>
+
+  <section class="download wrap" id="download"><div class="section-label"><span>05 / Скачать</span><span>Без регистрации</span></div><a class="download-title" href="/api/export?format=json">Скачать <em>базу</em><span class="css-arrow" aria-hidden="true"></span></a><div class="download-bottom"><p>Карточки, доступные в текущем режиме просмотра.<br>JSON для программ, CSV для таблиц.</p><a href="/api/export?format=json">JSON</a><a href="/api/export?format=csv">CSV</a></div></section>
+</main>
+<footer class="wrap"><span>Immersive Cases / База проектов</span><a href="https://github.com/Foutx/immersive-cases" target="_blank" rel="noopener noreferrer">Исходный код</a><a href="#title">Наверх</a></footer>
+</body></html>

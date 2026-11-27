@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "producer": "immersive_pipeline",
+  "collected_at": "2026-11-26T10:00:00Z",
+  "events": [
+    {
+      "source_record_id": "example-001",
+      "title": "Учебный пример, не реальное событие",
+      "description": "Вымышленная карточка для проверки формата обмена. Не публиковать как реальный кейс.",
+      "source_url": "https://example.org/event",
+      "start_date": null,
+      "end_date": null,
+      "reported_year": null,
+      "country_code": null,
+      "city": null,
+      "venue": null,
+      "location_text": null,
+      "organizers": [],
+      "studios": [],
+      "client_name": null,
+      "format_text": null,
+      "category": null,
+      "tags": [],
+      "claims": [],
+      "proofs": [
+        {
+          "url": "https://example.org/event",
+          "kind": "other",
+          "title": null,
+          "checked_at": null,
+          "http_status": null,
+          "error": null,
+          "relevance": "unreviewed"
+        }
+      ],
+      "occurrence": "unknown",
+      "score": null,
+      "score_method": null
+    }
+  ]
+}

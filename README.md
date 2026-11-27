@@ -1,12 +1,14 @@
 # Immersive Cases
 
+> [Версия для показа: 7 реальных кейсов, автономный HTML, пилот и модерация](docs/showcase.md).
+
 **Сборщик референсов для иммерсивных выставок, инсталляций и мультимедийных событий.**
 
 Программа обходит сайты студий и премий, извлекает карточки через LLM, ищет видео,
 оценивает кандидатов и формирует JSON-базу. По готовой базе можно искать примеры для своей идеи.
-Основной настроенный провайдер — **GigaChat-2-Max**; также поддерживаются Ollama и OpenAI-совместимый API.
+Парсер по умолчанию использует **GPT‑4.1 Nano через AI Tunnel**. GigaChat, Ollama и OpenAI-совместимый API доступны как явные альтернативы.
 
-> **Статус:** разработка. Извлечение через GigaChat проверено на реальных страницах teamLab.
+> **Статус:** разработка. AI Tunnel проверен на реальных страницах. Результаты пилота и его ограничения описаны в HTML-отчёте рядом с проектом; для нового запуска нужен свой ключ. [Что изменилось и что дальше](docs/roadmap.md).
 > Все четыре этапа покрыты офлайн-тестами, но полный сбор проверенного топ-100 ещё не подтверждён.
 > Готовая база из 100 кейсов в репозиторий не входит. Карточки LLM требуют проверки фактов.
 
@@ -14,7 +16,7 @@
 
 ```text
 Сайты студий и премий → карточки кандидатов → поиск видео → оценка → cases.json
-                              GigaChat           API        правила
+                              AI Tunnel          API        правила
 ```
 
 | Этап | Что делает | Результат в immersive_pipeline/data/ |
@@ -44,23 +46,24 @@ notepad immersive_pipeline/.env
 В файле укажите:
 
 ```dotenv
-LLM_PROVIDER=gigachat
-GIGACHAT_AUTH_KEY=ваш_ключ_авторизации
-GIGACHAT_SCOPE=GIGACHAT_API_PERS
-GIGACHAT_MODEL=GigaChat-2-Max
-GIGACHAT_BASE_URL=https://api.giga.chat/v1
-GIGACHAT_STRUCTURED=0
+LLM_PROVIDER=aitunnel
+AITUNNEL_API_KEY=ваш_ключ_AI_Tunnel
+AITUNNEL_MODEL=gpt-4.1-nano
+AITUNNEL_MAX_CALLS=60
 ```
 
-Нужен **Authorization Key из кабинета GigaChat API**, без префикса `Basic`.
-Scope должен соответствовать аккаунту; для организации используйте выданный ей scope.
-Клиент получает и обновляет временный токен автоматически. Доступность модели и расход
-квоты зависят от аккаунта. [Авторизация GigaChat](https://developers.sber.ru/docs/ru/gigachat/api/reference/rest/gigachat-api).
+Ключ берётся из кабинета AI Tunnel. Отдельный ключ OpenAI не нужен.
+Не используйте префикс Aider `openai/` в `AITUNNEL_MODEL`; здесь указан ID для API.
+Проверка ниже делает ровно один платный запрос, не собирает сайты и не пишет в БД:
+
+```powershell
+.\.venv\Scripts\python.exe immersive_pipeline/main.py llm-check --llm aitunnel
+```
 
 Пробный запуск на трёх ссылках:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\run.ps1 stage1 --llm gigachat --seed teamLab --limit 3
+powershell -ExecutionPolicy Bypass -File .\run.ps1 stage1 --llm aitunnel --seed teamLab --limit 3
 powershell -ExecutionPolicy Bypass -File .\run.ps1 status
 ```
 
@@ -69,7 +72,7 @@ powershell -ExecutionPolicy Bypass -File .\run.ps1 status
 Прямой эквивалент запуска:
 
 ```powershell
-.\.venv\Scripts\python.exe immersive_pipeline/main.py stage1 --llm gigachat --seed teamLab --limit 3
+.\.venv\Scripts\python.exe immersive_pipeline/main.py stage1 --llm aitunnel --seed teamLab --limit 3
 ```
 
 ### Linux / macOS
@@ -80,7 +83,7 @@ source .venv/bin/activate
 python -m pip install -r immersive_pipeline/requirements.txt
 cp immersive_pipeline/.env.example immersive_pipeline/.env
 # Заполните .env перед запуском.
-python immersive_pipeline/main.py stage1 --llm gigachat --seed teamLab --limit 3
+python immersive_pipeline/main.py stage1 --llm aitunnel --seed teamLab --limit 3
 ```
 
 ## Сбор базы по шагам
@@ -209,3 +212,27 @@ immersive_pipeline/
 
 Ключи, диагностические файлы, окружения и собранные базы исключены через `.gitignore`.
 Примеры импорта и пустой список существующих кейсов входят в исходники.
+
+## Контракт интеграции с БД
+
+Формат передачи карточек, правила идентичности и публикации: [docs/data-contract.md](docs/data-contract.md). Проверка пакета: python -m contracts.validate docs/event-import.example.json. Тесты контракта: python tests/test_contract.py. Подключение БД будет следующим этапом.
+
+
+## Локальная база
+
+SQLite без Docker: python -m database.check. Инструкция: [docs/database.md](docs/database.md). Создание таблиц и обновление схемы: python -m database.migrate.
+
+## Импорт в SQLite
+
+python -m services.import_events path/to/batch.json. Формат и правила повторной загрузки: [docs/import.md](docs/import.md). LLM-парсер подключается через контракт; сервис импорта не выполняет сетевой сбор.
+
+Сохранить результат этапа 4 в JSON и SQLite: `python immersive_pipeline/main.py stage4 --save-db`. Импортировать ранее собранное без повторного LLM: `python immersive_pipeline/main.py import-db --input immersive_pipeline/data/enriched_cases.json`.
+
+## API каталога
+
+Запуск: python -m api.app. Список: http://127.0.0.1:5000/api/events. По умолчанию видны только опубликованные карточки. [Маршруты и режим локального просмотра](docs/api.md).
+
+## Сайт
+
+Интерфейс теперь подключён к SQLite/API. Запуск: python -m api.app. [Локальный просмотр восстановленных кейсов и устройство сайта](docs/website.md).
+

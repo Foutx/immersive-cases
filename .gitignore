@@ -14,3 +14,7 @@ immersive_pipeline/data/*.json
 *.log
 *.zip
 .publish/
+
+/data/*.sqlite3*
+
+/data/pilot/
